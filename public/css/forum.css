@@ -1,0 +1,288 @@
+/* Forum Custom Styles */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    --secondary-gradient: linear-gradient(135deg, #263238 0%, #37474f 100%);
+    --accent-gradient: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
+    --success-gradient: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+    --warning-gradient: linear-gradient(135deg, #f57f17 0%, #ffa000 100%);
+    --danger-gradient: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
+}
+
+/* Dark theme colors */
+.dark-theme {
+    --bg-primary: #0a1929;
+    --bg-secondary: #132f4c;
+    --bg-accent: #173a5e;
+    --text-primary: #ffffff;
+    --text-secondary: #b2bac2;
+    --border-color: #1e4976;
+    --hover-bg: #264b70;
+}
+
+/* Light theme colors */
+body:not(.dark-theme) {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-accent: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: #e2e8f0;
+    --hover-bg: #f1f5f9;
+}
+
+/* Base styles */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Sidebar styling */
+.sidebar {
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+}
+
+/* Main content area */
+.main-content {
+    background: var(--bg-primary);
+}
+
+/* Card styling */
+.topic-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: var(--hover-bg);
+}
+
+/* Button styling */
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+}
+
+/* Tag styling */
+.tag-critical {
+    background: var(--danger-gradient);
+    color: white;
+}
+
+.tag-restricted {
+    background: var(--warning-gradient);
+    color: white;
+}
+
+.tag-resolved {
+    background: var(--success-gradient);
+    color: white;
+}
+
+/* Navigation items */
+.nav-item {
+    transition: all 0.3s ease;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+}
+
+.nav-item:hover {
+    background: var(--hover-bg);
+}
+
+.nav-item.active {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+/* Search input styling */
+.search-input {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.search-input:focus {
+    border-color: #0d47a1;
+    box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-bg);
+}
+
+/* User avatar styling */
+.user-avatar {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+/* Theme toggle buttons */
+.theme-toggle button {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle button:hover {
+    background: var(--hover-bg);
+}
+
+/* Pagination styling */
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background: var(--hover-bg);
+}
+
+.pagination .active {
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Focus states */
+:focus-visible {
+    outline: 2px solid #0d47a1;
+    outline-offset: 2px;
+}
+
+.dark-theme :focus-visible {
+    outline-color: #90caf9;
+}
+
+/* Loading states */
+.loading::after {
+    background: var(--bg-primary);
+    opacity: 0.7;
+}
+
+/* Custom Font */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Code Blocks */
+pre, code {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #f3f4f6;
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.dark-theme pre, 
+.dark-theme code {
+    background-color: #1f2937;
+}
+
+/* Focus Outline */
+:focus {
+    outline: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        z-index: 50;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Tooltip Styles */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem;
+    background-color: #1f2937;
+    color: white;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+[data-tooltip]:hover:before {
+    opacity: 1;
+    visibility: visible;
+} 
