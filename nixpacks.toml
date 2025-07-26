@@ -1,0 +1,10 @@
+[phases.build]
+cmds = [
+  "npm ci",
+  "npm run build",
+  "npm run dev",
+  "php artisan storage:link"
+]
+
+[phases.setup]
+nixPkgs = ["nodejs", "php81", "nginx"]
