@@ -58,4 +58,19 @@ const mobileMenuToggle = () => {
 };
 
 // Add event listener for mobile menu button (if needed)
-document.querySelector('.mobile-menu-btn')?.addEventListener('click', mobileMenuToggle); 
+document.querySelector('.mobile-menu-btn')?.addEventListener('click', mobileMenuToggle);
+
+// Set dark mode as default if no preference is stored
+if (localStorage.getItem('darkMode') === null) {
+    localStorage.setItem('darkMode', 'true');
+}
+
+// Apply dark mode class to html element
+document.addEventListener('DOMContentLoaded', function() {
+    const darkMode = localStorage.getItem('darkMode') !== 'false';
+    if (darkMode) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+}); 

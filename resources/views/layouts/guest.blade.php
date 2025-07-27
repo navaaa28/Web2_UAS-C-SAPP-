@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') !== 'false' }" x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))" :class="{ 'dark': darkMode }">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,22 +13,30 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
+    <body class="font-sans antialiased" :class="{ 'bg-gray-900 text-gray-100': darkMode, 'bg-gray-100 text-gray-900': !darkMode }">
         <div class="min-h-screen flex flex-col">
             @include('layouts.header')
             
-            <div class="flex-grow flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+            <div class="flex-grow flex flex-col sm:justify-center items-center pt-6 sm:pt-0" :class="{ 'bg-gray-900': darkMode, 'bg-gray-100': !darkMode }">
                 <div>
                     <a href="/">
-                        <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                        <x-application-logo class="w-20 h-20 fill-current" :class="{ 'text-gray-400': darkMode, 'text-gray-500': !darkMode }" />
                     </a>
                 </div>
 
-                <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+                <div class="w-full sm:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg" :class="{ 'bg-gray-800': darkMode, 'bg-white': !darkMode }">
                     {{ $slot }}
                 </div>
             </div>
         </div>
+        
+        <script>
+            // Set dark mode as default if no preference is stored
+            if (localStorage.getItem('darkMode') === null) {
+                localStorage.setItem('darkMode', 'true');
+            }
+        </script>
     </body>
 </html>

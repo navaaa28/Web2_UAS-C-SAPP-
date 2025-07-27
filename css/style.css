@@ -15,6 +15,14 @@
     --border-color: #e5e7eb;
 }
 
+/* Dark mode variables */
+.dark {
+    --text-color: #f9fafb;
+    --light-text: #d1d5db;
+    --background: #111827;
+    --border-color: #374151;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -94,6 +102,11 @@ p {
     z-index: 1000;
 }
 
+.dark .navbar {
+    background-color: #1f2937;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -133,6 +146,10 @@ p {
 .hero {
     padding: 8rem 0;
     background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+}
+
+.dark .hero {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
 }
 
 .hero .container {
@@ -176,6 +193,11 @@ p {
     transition: transform 0.3s ease;
 }
 
+.dark .feature-card {
+    background-color: #1f2937;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
 .feature-card:hover {
     transform: translateY(-5px);
 }
@@ -192,6 +214,10 @@ p {
     background-color: #f9fafb;
 }
 
+.dark .courses {
+    background-color: #111827;
+}
+
 .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -204,6 +230,11 @@ p {
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+}
+
+.dark .course-card {
+    background-color: #1f2937;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .course-card:hover {
