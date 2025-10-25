@@ -10,12 +10,12 @@
                     <div>
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Selamat Datang, {{ Auth::user()->name }}!</h2>
                     <p class="text-blue-800 dark:text-blue-100 text-lg mb-6">Lanjutkan pembelajaran keamanan siber Anda</p>
-                    <div class="flex items-center gap-4">
-                        <a href="{{ route('materials.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-100 dark:bg-white/10 backdrop-blur-sm text-blue-900 dark:text-white rounded-lg hover:bg-blue-200 dark:hover:bg-white/20 transition-colors duration-150 border border-blue-200 dark:border-white/20">
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="{{ route('materials.index') }}" class="inline-flex items-center w-full sm:w-auto justify-center px-6 py-3 bg-blue-100 dark:bg-white/10 backdrop-blur-sm text-blue-900 dark:text-white rounded-lg hover:bg-blue-200 dark:hover:bg-white/20 transition-colors duration-150 border border-blue-200 dark:border-white/20">
                             <i class="fas fa-book-open mr-2"></i>
                                 Lihat Semua Materi
                             </a>
-                        <a href="{{ route('quizzes') }}" class="inline-flex items-center px-6 py-3 bg-blue-100 dark:bg-white/10 backdrop-blur-sm text-blue-900 dark:text-white rounded-lg hover:bg-blue-200 dark:hover:bg-white/20 transition-colors duration-150 border border-blue-200 dark:border-white/20">
+                        <a href="{{ route('quizzes') }}" class="inline-flex items-center w-full sm:w-auto justify-center px-6 py-3 bg-blue-100 dark:bg-white/10 backdrop-blur-sm text-blue-900 dark:text-white rounded-lg hover:bg-blue-200 dark:hover:bg-white/20 transition-colors duration-150 border border-blue-200 dark:border-white/20">
                             <i class="fas fa-tasks mr-2"></i>
                                 Mulai Kuis
                             </a>
@@ -68,8 +68,8 @@
                     </div>
 
                     <!-- Action -->
-                    <a href="{{ route('materials.module', $module) }}"
-                       class="ml-4 px-4 py-2 rounded-lg text-sm bg-blue-100 dark:bg-blue-600/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 hover:bg-blue-200 dark:hover:bg-blue-600/40 hover:text-blue-900 dark:hover:text-white transition-all duration-200">
+                          <a href="{{ route('materials.module', $module) }}"
+                              class="sm:ml-4 ml-0 mt-3 sm:mt-0 w-full sm:w-auto px-4 py-2 rounded-lg text-sm bg-blue-100 dark:bg-blue-600/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 hover:bg-blue-200 dark:hover:bg-blue-600/40 hover:text-blue-900 dark:hover:text-white transition-all duration-200">
                         {{ $module->isCompletedByUser() ? 'Baca Ulang' : 'Mulai' }}
                     </a>
                 </div>
@@ -104,7 +104,7 @@
 
             <div class="flex items-center space-x-6">
                 <div class="relative">
-                    <svg class="w-24 h-24">
+                    <svg class="w-20 h-20 sm:w-24 sm:h-24">
                         <circle class="text-gray-200 dark:text-gray-700/30" stroke-width="8" stroke="currentColor" fill="transparent" r="42" cx="48" cy="48"/>
                         <circle class="text-blue-500" stroke-width="8" stroke="currentColor" fill="transparent" r="42" cx="48" cy="48"
                             stroke-dasharray="264" stroke-dashoffset="{{ 264 - ($assessmentData['score'] / 100 * 264) }}"/>

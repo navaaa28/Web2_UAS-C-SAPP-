@@ -6,11 +6,11 @@
                 <div class="absolute -inset-1">
                     <div class="w-full h-full mx-auto opacity-30 blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500"></div>
                 </div>
-                <div class="relative bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-800 p-6">
+                <div class="relative bg-white/80 dark:bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800 p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h2 class="text-2xl font-bold text-white">Daftar Pengguna</h2>
-                            <p class="mt-1 text-gray-400">Kelola semua pengguna platform</p>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Daftar Pengguna</h2>
+                            <p class="mt-1 text-gray-600 dark:text-gray-400">Kelola semua pengguna platform</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <form method="GET" action="{{ route('admin.users.index') }}" class="relative">
@@ -19,7 +19,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
                                 </div>
-                                <input type="text" name="search" value="{{ request('search') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-[#1A2333]/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cari pengguna...">
+                                <input type="text" name="search" value="{{ request('search') }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white dark:bg-[#1A2333]/50 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Cari pengguna...">
                             </form>
                         </div>
                     </div>
@@ -31,10 +31,10 @@
                 <div class="absolute -inset-1">
                     <div class="w-full h-full mx-auto opacity-20 blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500"></div>
                 </div>
-                <div class="relative bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-800 overflow-hidden">
+                <div class="relative bg-white/80 dark:bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-800">
-                            <thead class="bg-[#1A2333]/50">
+                        <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50 dark:bg-[#1A2333]/50">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                                         Nama
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-800">
                                 @foreach($users as $user)
-                                <tr class="hover:bg-[#1A2333]/50 transition-colors duration-200">
+                                <tr class="hover:bg-gray-100 dark:hover:bg-[#1A2333]/50 transition-colors duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
@@ -71,7 +71,7 @@
                                                 </div>
                                             </div>
                                             <div class="ml-4">
-                                                <div class="text-sm font-medium text-white">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">
                                                     {{ $user->name }}
                                                 </div>
                                             </div>

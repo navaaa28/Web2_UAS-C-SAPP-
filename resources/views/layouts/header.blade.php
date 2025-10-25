@@ -1,12 +1,16 @@
 <!-- Header Component -->
+@if(View::hasSection('fullwidth'))
+<header class="sticky top-0 z-50 bg-transparent border-transparent">
+@else
 <header class="sticky top-0 z-50 border-b" :class="{ 'bg-gray-800/50 border-gray-700/50': darkMode, 'bg-white/50 border-gray-200/50': !darkMode }">
+@endif
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+        <div class="flex items-center justify-between h-12 sm:h-16">
             <!-- Logo and Brand -->
             <div class="flex items-center">
                 <a href="{{ route('dashboard') }}" class="flex items-center">
-                    <img src="{{ asset('storage/images/LOGO.png') }}" alt="C-SAPP Logo" class="h-8 w-auto mr-3">
-                    <span class="text-xl font-bold text-gray-900 dark:text-white">C-SAPP</span>
+                    <img src="{{ asset('storage/images/LOGO.png') }}" alt="C-SAPP Logo" class="h-6 sm:h-8 w-auto mr-3">
+                    <span class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">C-SAPP</span>
                 </a>
             </div>
 
@@ -103,7 +107,7 @@
                                     <i class="fas fa-bug mr-2"></i>Laporan
                                 </a>
                                 <div class="border-t border-gray-200 dark:border-gray-700/50 my-1"></div>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('logout') }}" data-logout>
                                     @csrf
                                     <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/30 dark:hover:text-white">
                                         <i class="fas fa-sign-out-alt mr-2"></i>Keluar
@@ -127,7 +131,7 @@
 
             <!-- Mobile menu button -->
             <div class="md:hidden flex items-center">
-                <button type="button" class="mobile-menu-btn p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700/30">
+                <button type="button" aria-label="Open menu" class="mobile-menu-btn p-2 rounded-md w-10 h-10 inline-flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700/30">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -196,7 +200,7 @@
                     <a href="{{ route('reports') }}" class="block px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/30 dark:hover:text-white">
                         <i class="fas fa-bug mr-2"></i>Laporan
                     </a>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}" data-logout>
                         @csrf
                         <button type="submit" class="w-full text-left px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700/30 dark:hover:text-white">
                             <i class="fas fa-sign-out-alt mr-2"></i>Keluar

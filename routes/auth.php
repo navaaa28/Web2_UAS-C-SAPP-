@@ -17,6 +17,15 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
+    // Social OAuth routes (Google, GitHub)
+    Route::get('auth/{provider}/redirect', [\App\Http\Controllers\Auth\SocialAuthController::class, 'redirect'])
+        ->where('provider', 'google')
+        ->name('social.redirect');
+
+    Route::get('auth/{provider}/callback', [\App\Http\Controllers\Auth\SocialAuthController::class, 'callback'])
+        ->where('provider', 'google')
+        ->name('social.callback');
+
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 

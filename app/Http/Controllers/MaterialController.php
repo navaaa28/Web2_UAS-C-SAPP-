@@ -91,19 +91,28 @@ class MaterialController extends Controller
 
     public function trackTime(Request $request, Module $module)
     {
-        $timeSpent = $request->input('time_spent', 0);
-        
-        // Update or create module progress
+        $timeSpent = (int) $request->input('time_spent', 0);
+
+        if ($timeSpent <= 0) {
+            return response()->json(['success' => false, 'message' => 'No time to add', 'time_spent' => 0], 400);
+        }
+
+        // Update or create module progress. Use COALESCE to avoid NULL + n => NULL in some DB configs
         $progress = ModuleProgress::updateOrCreate(
             [
                 'user_id' => auth()->id(),
                 'module_id' => $module->id,
             ],
             [
-                'time_spent' => DB::raw('time_spent + ' . $timeSpent),
+                'time_spent' => DB::raw('COALESCE(time_spent, 0) + ' . $timeSpent),
             ]
         );
 
-        return response()->json(['success' => true]);
+        // Reload progress to get the updated total
+        $progress = ModuleProgress::where('user_id', auth()->id())
+            ->where('module_id', $module->id)
+            ->first();
+
+        return response()->json(['success' => true, 'time_spent' => $progress?->time_spent ?? 0]);
     }
 } 

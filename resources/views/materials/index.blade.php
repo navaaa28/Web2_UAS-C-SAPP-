@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900">
+<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
     <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Header Section -->
-        <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-xl p-6 sm:p-8 mb-8 backdrop-blur-sm border border-blue-500/20">
+    <div class="bg-white/5 dark:bg-gray-900/60 rounded-lg shadow-xl p-6 sm:p-8 mb-8 backdrop-blur-sm border border-blue-100/10 dark:border-gray-700/50">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-white mb-2">Materi Pembelajaran</h1>
-                    <p class="text-blue-100 text-lg">Tingkatkan keahlian keamanan siber Anda melalui modul-modul interaktif</p>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Materi Pembelajaran</h1>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg">Tingkatkan keahlian keamanan siber Anda melalui modul-modul interaktif</p>
                 </div>
                 <div class="hidden lg:block">
                     <div class="bg-white/10 backdrop-blur-sm rounded-full p-6 border border-white/20">
@@ -65,28 +65,30 @@
             </div>
         </div>
         
-        <!-- Materials Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Materials Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style="grid-auto-rows: 1fr;">
             @forelse($modules as $module)
-            <div class="group bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300">
-                <div class="p-6">
-                    <div class="flex items-start justify-between">
-                        <div class="flex-1">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-lg bg-blue-600/20 backdrop-blur-sm flex items-center justify-center border border-blue-500/30 mr-4">
-                                    <i class="fas fa-book text-blue-400 text-xl"></i>
+            <div class="group bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 flex flex-col h-full overflow-hidden">
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-600/20 backdrop-blur-sm flex items-center justify-center border border-blue-500/30 mr-4">
+                                        <i class="fas fa-book text-blue-400 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors">{{ $module->title }}</h3>
                                 </div>
-                                <h3 class="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">{{ $module->title }}</h3>
+                                <p class="text-gray-700 dark:text-gray-300 mb-4 line-clamp-2">{{ $module->description }}</p>
                             </div>
-                            <p class="text-gray-400 mb-4 line-clamp-2">{{ $module->description }}</p>
+                            @if($module->isCompletedByUser())
+                                <div class="flex-shrink-0 ml-4">
+                                    <div class="w-8 h-8 rounded-full bg-green-600/20 backdrop-blur-sm flex items-center justify-center border border-green-500/30">
+                                        <i class="fas fa-check text-green-400"></i>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                        @if($module->isCompletedByUser())
-                            <div class="flex-shrink-0 ml-4">
-                                <div class="w-8 h-8 rounded-full bg-green-600/20 backdrop-blur-sm flex items-center justify-center border border-green-500/30">
-                                    <i class="fas fa-check text-green-400"></i>
-                                </div>
-                            </div>
-                        @endif
                     </div>
 
                     <div class="mt-4 flex items-center justify-between">
@@ -117,15 +119,55 @@
                         </div>
                     @endif
                 </div>
-                <div class="px-6 py-4 bg-gray-700/30 backdrop-blur-sm rounded-b-lg border-t border-gray-700/50">
+                <div class="px-6 py-4 bg-gray-700/30 backdrop-blur-sm rounded-b-lg border-t border-gray-700/50 min-h-[64px]">
                     <div class="flex items-center justify-between text-sm">
                         <div class="flex items-center text-gray-400">
                             <i class="fas fa-clock mr-2"></i>
                             @php
-                                $timeSpent = $module->userProgress->time_spent ?? 0;
-                                $hours = round($timeSpent / 3600, 1);
+                                // Protect against null userProgress and non-numeric values
+                                $timeSpent = 0;
+                                if (!empty($module->userProgress) && isset($module->userProgress->time_spent)) {
+                                    $timeSpent = (int) $module->userProgress->time_spent;
+                                }
+
+                                // Display logic:
+                                // - If no progress record: 'Belum Dibaca'
+                                // - If progress exists but not completed and time_spent > 0: 'Sedang Dibaca: ...'
+                                // - If completed: show concise time + 'belajar'
+                                if (empty($module->userProgress)) {
+                                    $display = 'Belum Dibaca';
+                                } else {
+                                    $hours = intdiv($timeSpent, 3600);
+                                    $minutes = intdiv($timeSpent % 3600, 60);
+                                    $seconds = $timeSpent % 60;
+
+                                    $parts = [];
+                                    if ($hours > 0) {
+                                        $parts[] = $hours . ' jam';
+                                    }
+                                    if ($minutes > 0) {
+                                        $parts[] = $minutes . ' menit';
+                                    }
+                                    if ($seconds > 0) {
+                                        $parts[] = $seconds . ' detik';
+                                    }
+
+                                    $timeLabel = empty($parts) ? '0 detik' : implode(' ', $parts);
+
+                                    if (!$module->isCompletedByUser()) {
+                                        // Not completed but has progress => show 'Sedang Dibaca' if time > 0
+                                        if ($timeSpent > 0) {
+                                            $display = 'Sedang Dibaca: ' . $timeLabel;
+                                        } else {
+                                            $display = 'Belum Dibaca';
+                                        }
+                                    } else {
+                                        // Completed -> show time + ' belajar'
+                                        $display = $timeLabel . ' belajar';
+                                    }
+                                }
                             @endphp
-                            {{ $hours }} jam belajar
+                            {{ $display }}
                         </div>
                     </div>
                 </div>
@@ -155,12 +197,6 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Set dark theme by default for cybersecurity theme
-    document.body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-});
-</script>
+<!-- theme is controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme script. -->
 @endpush
 @endsection 

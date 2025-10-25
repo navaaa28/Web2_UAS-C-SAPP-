@@ -14,11 +14,13 @@ class ModuleProgress extends Model
         'module_id',
         'is_completed',
         'completed_at',
+        'time_spent',
     ];
 
     protected $casts = [
         'is_completed' => 'boolean',
         'completed_at' => 'datetime',
+        'time_spent' => 'integer',
     ];
 
     public function user(): BelongsTo

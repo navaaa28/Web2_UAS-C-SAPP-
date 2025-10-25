@@ -63,7 +63,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Set dark theme by default for cybersecurity theme
-    document.body.classList.add('dark-theme');
+    // theme controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme.
     localStorage.setItem('theme', 'dark');
     
     // Track answered steps

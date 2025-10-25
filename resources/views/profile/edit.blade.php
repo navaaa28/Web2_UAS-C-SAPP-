@@ -23,7 +23,7 @@
                         <p class="text-sm text-gray-400">Update your account's profile information</p>
                     </div>
                 </div>
-                <div class="max-w-xl">
+                <div class="w-full max-w-xl mx-auto">
                     @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         <p class="text-sm text-gray-400">Ensure your account is using a long, random password</p>
                     </div>
                 </div>
-                <div class="max-w-xl">
+                <div class="w-full max-w-xl mx-auto">
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         <p class="text-sm text-gray-400">Add additional security to your account</p>
                     </div>
                 </div>
-                <div class="max-w-xl">
+                <div class="w-full max-w-xl mx-auto">
                     @include('profile.partials.two-factor-auth-form')
                 </div>
             </div>
@@ -71,7 +71,7 @@
                         <p class="text-sm text-gray-400">Manage how you receive notifications</p>
                     </div>
                 </div>
-                <div class="max-w-xl">
+                <div class="w-full max-w-xl mx-auto">
                     @include('profile.partials.notification-preferences-form')
                 </div>
             </div>
@@ -87,7 +87,7 @@
                         <p class="text-sm text-gray-400">Permanently delete your account and all data</p>
                     </div>
                 </div>
-                <div class="max-w-xl">
+                <div class="w-full max-w-xl mx-auto">
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') !== 'false' }" x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))" :class="{ 'dark': darkMode }">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,10 +15,10 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-[#070A13]">
+<body class="font-sans antialiased" :class="{ 'bg-gray-100 text-gray-900': !darkMode, 'bg-[#070A13] text-gray-100': darkMode }">
     <div class="min-h-screen">
         <!-- Sidebar -->
-        <div class="fixed inset-y-0 left-0 w-72 bg-[#1A2333]/30 backdrop-blur-sm border-r border-gray-800">
+    <div class="fixed inset-y-0 left-0 w-72 bg-white/80 dark:bg-[#1A2333]/20 backdrop-blur-sm border-r border-gray-200 dark:border-gray-800">
             <div class="flex items-center justify-between h-16 px-6 border-b border-gray-800">
                 <div class="flex items-center">
                     <div class="relative">
@@ -29,12 +29,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
-                    <span class="ml-3 text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Admin Panel</span>
+                    <span class="ml-3 text-xl font-bold text-gray-900 dark:text-white">Admin Panel</span>
                 </div>
             </div>
             <nav class="mt-8">
                 <div class="px-4 space-y-2">
-                    <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                    <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.dashboard') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.dashboard') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,6 +44,7 @@
                         Dashboard
                     </a>
                     <a href="{{ route('admin.users.index') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.users.*') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                        <a href="{{ route('admin.users.index') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.users.*') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.users.*') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.users.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,6 +54,7 @@
                         Pengguna
                     </a>
                     <a href="{{ route('admin.modules.index') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.modules.*') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                        <a href="{{ route('admin.modules.index') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.modules.*') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.modules.*') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.modules.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,6 +64,7 @@
                         Modul
                     </a>
                     <a href="{{ route('admin.quizzes.index') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.quizzes.*') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                        <a href="{{ route('admin.quizzes.index') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.quizzes.*') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.quizzes.*') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.quizzes.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,6 +74,7 @@
                         Kuis
                     </a>
                     <a href="{{ route('admin.simulations.index') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.simulations.*') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                        <a href="{{ route('admin.simulations.index') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.simulations.*') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.simulations.*') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.simulations.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,6 +84,7 @@
                         Simulasi
                     </a>
                     <a href="{{ route('admin.surveys.index') }}" class="group flex items-center px-4 py-3 text-gray-300 hover:text-white rounded-lg transition-all duration-200 {{ request()->routeIs('admin.surveys.*') ? 'bg-[#1A2333]/70 text-white' : 'hover:bg-[#1A2333]/50' }}">
+                        <a href="{{ route('admin.surveys.index') }}" class="group flex items-center px-4 py-3 rounded-lg transition-all duration-200 {{ request()->routeIs('admin.surveys.*') ? 'bg-blue-100 dark:bg-[#1A2333]/70 text-blue-700 dark:text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/50' }}">
                         <div class="relative">
                             <div class="absolute -inset-1 {{ request()->routeIs('admin.surveys.*') ? 'opacity-50' : 'opacity-0 group-hover:opacity-30' }} blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500 transition-opacity duration-200"></div>
                             <svg class="relative w-5 h-5 mr-3 {{ request()->routeIs('admin.surveys.*') ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500' }} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +100,7 @@
         <!-- Main Content -->
         <div class="ml-72">
             <!-- Top Navigation -->
-            <div class="bg-[#1A2333]/30 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-50">
+            <div class="bg-white/80 dark:bg-[#1A2333]/30 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
                 <div class="flex items-center justify-end h-16 px-8">
                     <div class="flex items-center space-x-4">
                         <div class="relative" x-data="{ open: false }">
@@ -104,8 +109,8 @@
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
                                 <div class="hidden md:block text-left">
-                                    <div class="text-sm font-medium text-gray-300">{{ Auth::user()->name }}</div>
-                                    <div class="text-xs text-gray-400">Administrator</div>
+                                    <div class="text-sm font-medium text-gray-900 dark:text-gray-300">{{ Auth::user()->name }}</div>
+                                    <div class="text-xs text-gray-600 dark:text-gray-400">Administrator</div>
                                 </div>
                                 <i class="fas fa-chevron-down text-gray-400"></i>
                             </button>
@@ -113,7 +118,7 @@
                             <!-- Dropdown Menu -->
                             <div x-show="open" 
                                  @click.away="open = false"
-                                 class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-[#1A2333] border border-gray-800"
+                                 class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-[#1A2333] border border-gray-200 dark:border-gray-800"
                                  x-transition:enter="transition ease-out duration-100"
                                  x-transition:enter-start="transform opacity-0 scale-95"
                                  x-transition:enter-end="transform opacity-100 scale-100"
@@ -122,16 +127,16 @@
                                  x-transition:leave-end="transform opacity-0 scale-95"
                                  style="display: none; z-index: 100;">
                                 <div class="py-1">
-                                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1A2333]/70 hover:text-white">
+                                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/70 hover:text-gray-900 dark:hover:text-white">
                                         <i class="fas fa-user mr-2"></i>Profile
                                     </a>
-                                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#1A2333]/70 hover:text-white">
+                                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/70 hover:text-gray-900 dark:hover:text-white">
                                         <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                                     </a>
                                     <div class="border-t border-gray-800 my-1"></div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#1A2333]/70 hover:text-white">
+                                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A2333]/70 hover:text-gray-900 dark:hover:text-white">
                                             <i class="fas fa-sign-out-alt mr-2"></i>Logout
                             </button>
                         </form>

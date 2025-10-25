@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex h-screen bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900">
+<div class="flex min-h-0 bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900">
     <!-- Main Content -->
-    <div class="flex-1 overflow-auto bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="flex-1 overflow-auto bg-gradient-to-br from-gray-900 to-gray-800 min-h-0">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="bg-gray-800/50 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden border border-gray-700/50">
                 <div class="p-6 border-b border-gray-700/50">
@@ -53,12 +53,12 @@
                 @enderror
             </div>
 
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-700/50">
-                            <button type="button" onclick="history.back()" class="inline-flex items-center px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-200 font-medium rounded-md transition-all duration-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-gray-700/50">
+                            <button type="button" onclick="history.back()" class="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-200 font-medium rounded-md transition-all duration-200">
                                 <i class="fas fa-times mr-2"></i>
                                 Batal
                 </button>
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-md transition-all duration-200 shadow-lg hover:shadow-blue-500/25">
+                            <button type="submit" class="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-md transition-all duration-200 shadow-lg hover:shadow-blue-500/25">
                                 <i class="fas fa-paper-plane mr-2"></i>
                                 Buat Topik
                 </button>
@@ -81,18 +81,16 @@
 <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Set dark theme by default for cybersecurity theme
-    document.body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
+        // theme controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme.
 
     // Theme toggle buttons
     document.getElementById('light-theme')?.addEventListener('click', function() {
-        document.body.classList.remove('dark-theme');
+            // rely on global theme toggle instead of removing specific class
         localStorage.setItem('theme', 'light');
     });
 
     document.getElementById('dark-theme')?.addEventListener('click', function() {
-        document.body.classList.add('dark-theme');
+            // local dark-theme toggle replaced by global toggle in header. No-op here.
         localStorage.setItem('theme', 'dark');
     });
 });

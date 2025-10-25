@@ -10,7 +10,7 @@
 }
 
 /* Dark theme colors */
-.dark-theme {
+html.dark {
     --bg-primary: #0a1929;
     --bg-secondary: #132f4c;
     --bg-accent: #173a5e;
@@ -21,7 +21,7 @@
 }
 
 /* Light theme colors */
-body:not(.dark-theme) {
+html:not(.dark) {
     --bg-primary: #ffffff;
     --bg-secondary: #f8fafc;
     --bg-accent: #f1f5f9;

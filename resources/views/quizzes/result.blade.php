@@ -14,12 +14,12 @@
             <div class="text-center">
                 <h2 class="text-2xl font-semibold text-white mb-4">Nilai Anda</h2>
                 <div class="relative inline-block">
-                    <div class="w-40 h-40 rounded-full bg-gray-700/30 flex items-center justify-center border border-gray-600/30 mb-4 mx-auto">
-                        <div class="text-5xl font-bold {{ $score >= 70 ? 'text-green-400' : 'text-red-400' }}">
+                    <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-700/30 flex items-center justify-center border border-gray-600/30 mb-4 mx-auto">
+                        <div class="text-4xl sm:text-5xl font-bold {{ $score >= 70 ? 'text-green-400' : 'text-red-400' }}">
                             {{ $score }}%
                         </div>
                     </div>
-                    <div class="absolute top-0 right-0 w-12 h-12 rounded-full {{ $score >= 70 ? 'bg-green-600/20 text-green-400 border-green-500/30' : 'bg-red-600/20 text-red-400 border-red-500/30' }} flex items-center justify-center border">
+                    <div class="absolute top-0 right-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full {{ $score >= 70 ? 'bg-green-600/20 text-green-400 border-green-500/30' : 'bg-red-600/20 text-red-400 border-red-500/30' }} flex items-center justify-center border">
                         @if($score >= 70)
                             <i class="fas fa-check text-xl"></i>
                         @else
@@ -120,7 +120,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Set dark theme by default for cybersecurity theme
-    document.body.classList.add('dark-theme');
+    // theme controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme.
     localStorage.setItem('theme', 'dark');
 });
 </script>

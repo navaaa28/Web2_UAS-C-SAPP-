@@ -3,7 +3,7 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900">
     @if (session('success'))
-    <div class="fixed top-4 right-4 z-50">
+    <div class="fixed top-4 right-4 z-50 hidden sm:block">
         <div class="bg-green-600/20 backdrop-blur-sm text-green-400 p-4 rounded-lg shadow-lg border border-green-500/30" role="alert">
             <div class="flex items-center">
                 <i class="fas fa-check-circle mr-2"></i>
@@ -185,7 +185,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Set dark theme by default
-    document.body.classList.add('dark-theme');
+    // theme controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme.
     localStorage.setItem('theme', 'dark');
 
     // Mobile sidebar toggle
@@ -257,34 +257,77 @@ function showModuleContent(event) {
 
 // Time tracking code...
 let startTime = Date.now();
+let secondsAccumulator = 0; // counts seconds since last sent chunk
 let timeSpentInterval;
 let isTracking = true;
 
-function updateTimeSpent() {
-    if (!isTracking) return;
-    
-    const currentTime = Date.now();
-    const timeSpent = Math.floor((currentTime - startTime) / 1000);
-    
-    if (timeSpent % 60 === 0) {
-        fetch('{{ route("materials.track-time", $module) }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ time_spent: 60 })
-        });
+function sendChunk(seconds) {
+    // Prefer fetch for regular 60s chunks
+    fetch('{{ route("materials.track-time", $module) }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ time_spent: seconds })
+    }).catch(() => {
+        // swallow errors silently; final send will attempt via sendBeacon on unload
+    });
+}
+
+function sendBeaconTime(seconds) {
+    // Use FormData so sendBeacon sends parsable form data and Laravel can read _token
+    try {
+        const fd = new FormData();
+        fd.append('time_spent', seconds);
+        fd.append('_token', '{{ csrf_token() }}');
+        navigator.sendBeacon('{{ route("materials.track-time", $module) }}', fd);
+    } catch (e) {
+        // fallback to fetch if sendBeacon is not available or fails
+        sendChunk(seconds);
     }
 }
 
+function updateTimeSpent() {
+    if (!isTracking) return;
+    const currentTime = Date.now();
+    const elapsed = Math.floor((currentTime - startTime) / 1000);
+
+    // accumulate elapsed seconds, then reset startTime
+    if (elapsed > 0) {
+        secondsAccumulator += elapsed;
+        startTime = Date.now();
+    }
+
+    // send in 60s chunks
+    while (secondsAccumulator >= 60) {
+        secondsAccumulator -= 60;
+        sendChunk(60);
+    }
+}
+
+// run every 1s to keep counting; actual sends happen when accumulator >= 60
 timeSpentInterval = setInterval(updateTimeSpent, 1000);
 
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
+        // when hidden, stop interval and send remaining accumulated seconds via sendBeacon
         isTracking = false;
         clearInterval(timeSpentInterval);
+
+        // calculate any seconds since last tick
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        if (elapsed > 0) {
+            secondsAccumulator += elapsed;
+            startTime = Date.now();
+        }
+
+        if (secondsAccumulator > 0) {
+            sendBeaconTime(secondsAccumulator);
+            secondsAccumulator = 0;
+        }
     } else {
+        // resumed
         isTracking = true;
         startTime = Date.now();
         timeSpentInterval = setInterval(updateTimeSpent, 1000);
@@ -292,15 +335,15 @@ document.addEventListener('visibilitychange', function() {
 });
 
 window.addEventListener('beforeunload', function() {
-    if (isTracking) {
-        const finalTime = Math.floor((Date.now() - startTime) / 1000);
-        navigator.sendBeacon(
-            '{{ route("materials.track-time", $module) }}',
-            JSON.stringify({
-                time_spent: finalTime,
-                _token: '{{ csrf_token() }}'
-            })
-        );
+    // send any remaining seconds before the page unloads
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const finalSeconds = secondsAccumulator + (elapsed > 0 ? elapsed : 0);
+    if (finalSeconds > 0) {
+        try {
+            sendBeaconTime(finalSeconds);
+        } catch (e) {
+            // last resort: synchronous XHR (not ideal) — skip here to avoid blocking
+        }
     }
 });
 </script>

@@ -24,7 +24,7 @@
         <link rel="apple-touch-icon" href="{{ asset('storage/images/LOGO.png') }}">
     </head>
     <body class="font-sans antialiased min-h-screen flex flex-col" :class="{ 'bg-gray-900 text-gray-100': darkMode, 'bg-gray-100 text-gray-900': !darkMode }">
-        <div class="min-h-screen">
+        <div class="min-h-0 flex flex-col">
             @include('layouts.header')
 
             <!-- Page Content -->
@@ -55,11 +55,21 @@
                 @endif
 
                 <!-- Page Content -->
-                <div class="py-12">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        @yield('content')
+                @if (View::hasSection('fullwidth'))
+                    {{-- Render a full-bleed section provided by the page (e.g. hero) --}}
+                    @yield('fullwidth')
+                    <div class="py-12">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            @yield('content')
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="py-12">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                @endif
             </main>
 
             @include('layouts.footer')
@@ -73,5 +83,13 @@
                 localStorage.setItem('darkMode', 'true');
             }
         </script>
+
+        {{-- NOTE: Auto-logout-on-unload script removed because it was sending a logout POST
+             whenever the page was hidden/unloaded (including normal internal navigation).
+             This caused users to be logged out when they clicked header links.
+
+             If you want an automatic session-termination behavior on browser close, we
+             should implement a safer approach or rely on server-side session timeouts.
+        --}}
     </body>
 </html>

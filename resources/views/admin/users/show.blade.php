@@ -5,11 +5,11 @@
                 <div class="absolute -inset-1">
                     <div class="w-full h-full mx-auto opacity-30 blur-lg filter bg-gradient-to-r from-blue-600 to-blue-500"></div>
                 </div>
-                <div class="relative bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-800 p-6">
-                    <h2 class="text-2xl font-bold text-white mb-2">Detail Pengguna</h2>
-                    <p class="text-gray-400 mb-4">Informasi lengkap pengguna</p>
+                <div class="relative bg-white/80 dark:bg-[#1A2333]/30 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Detail Pengguna</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Informasi lengkap pengguna</p>
                     <div class="flex items-center space-x-6 mb-6">
-                        <div class="h-16 w-16 rounded-lg bg-[#1A2333]/50 border border-gray-800 flex items-center justify-center">
+                        <div class="h-16 w-16 rounded-lg bg-white dark:bg-[#1A2333]/50 border border-gray-200 dark:border-gray-800 flex items-center justify-center">
                             <span class="text-2xl font-bold text-blue-500">{{ substr($user->name, 0, 1) }}</span>
                         </div>
                         <div>

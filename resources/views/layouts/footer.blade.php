@@ -1,11 +1,11 @@
-<footer class="bg-[#0B1120] border-t border-blue-800/40 text-gray-300 relative z-10">
+<footer class="bg-white/80 dark:bg-gray-900 border-t border-blue-800/40 dark:border-blue-800/40 text-gray-700 dark:text-gray-300 relative z-10">
     <div class="max-w-7xl mx-auto py-16 px-6 lg:px-20">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
             
             <!-- About -->
             <div class="md:col-span-2">
-                <h3 class="text-lg font-bold text-blue-400 mb-4">Tentang <span class="text-white">C-SAPP</span></h3>
-                <p class="text-gray-400 mb-4 leading-relaxed">
+                <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-4">Tentang <span class="text-gray-900 dark:text-white">C-SAPP</span></h3>
+                <p class="text-gray-700 dark:text-gray-400 mb-4 leading-relaxed">
                     C-SAPP adalah aplikasi web buatan Kelompok 5 untuk menyelesaikan Ujian Akhir Semester Pemrograman Web 2. Kami berharap aplikasi ini bermanfaat sebagai sumber belajar keamanan siber.
                 </p>
                 <div class="flex space-x-4 mt-4">
@@ -23,37 +23,37 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-lg font-bold text-blue-400 mb-4">Navigasi Cepat</h3>
+                <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-4">Navigasi Cepat</h3>
                 <ul class="space-y-2">
                     <li>
-                        <a href="{{ route('dashboard') }}" class="hover:text-blue-400 transition">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Dashboard</a>
                     </li>
                     <li>
-                        <a href="{{ route('materials.index') }}" class="hover:text-blue-400 transition">Training Materials</a>
+                        <a href="{{ route('materials.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Training Materials</a>
                     </li>
                     <li>
-                        <a href="{{ route('forum.index') }}" class="hover:text-blue-400 transition">Community Forum</a>
+                        <a href="{{ route('forum.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Community Forum</a>
                     </li>
                     <li>
-                        <a href="{{ route('reports') }}" class="hover:text-blue-400 transition">Laporan</a>
+                        <a href="{{ route('reports') }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Laporan</a>
                     </li>
                 </ul>
             </div>
 
             <!-- Kontak -->
             <div>
-                <h3 class="text-lg font-bold text-blue-400 mb-4">Kontak Kita</h3>
+                <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-4">Kontak Kita</h3>
                 <ul class="space-y-3 text-sm">
                     <li class="flex items-center gap-3">
-                        <i class="fas fa-envelope text-blue-400"></i>
+                        <i class="fas fa-envelope text-blue-600 dark:text-blue-400"></i>
                         <span>supportkita@gmail.com</span>
                     </li>
                     <li class="flex items-center gap-3">
-                        <i class="fas fa-phone text-blue-400"></i>
+                        <i class="fas fa-phone text-blue-600 dark:text-blue-400"></i>
                         <span>+62 812-3456-7890</span>
                     </li>
                     <li class="flex items-center gap-3">
-                        <i class="fas fa-map-marker-alt text-blue-400"></i>
+                        <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-400"></i>
                         <span>Bandung, Indonesia</span>
                     </li>
                 </ul>
@@ -62,13 +62,13 @@
 
         <!-- Bottom Bar -->
         <div class="mt-12 pt-8 border-t border-blue-800/30 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500">
-                &copy; {{ date('Y') }} <span class="text-blue-400 font-semibold">C-SAPP</span>. Ini Copyright WM slurr.
+            <p class="text-sm text-gray-700 dark:text-gray-400">
+                &copy; {{ date('Y') }} <span class="text-blue-600 dark:text-blue-400 font-semibold">C-SAPP</span>. Ini Copyright WM slurr.
             </p>
             <div class="flex space-x-4 mt-4 md:mt-0 text-sm">
-                <a href="#" class="hover:text-blue-400 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-blue-400 transition">Terms of Service</a>
-                <a href="#" class="hover:text-blue-400 transition">Security Guidelines</a>
+                <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Terms of Service</a>
+                <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Security Guidelines</a>
             </div>
         </div>
     </div>

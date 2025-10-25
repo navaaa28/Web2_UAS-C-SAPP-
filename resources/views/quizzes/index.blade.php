@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900">
+<div class="min-h-screen bg-gray-100 text-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header Section -->
         <div class="mb-8">
@@ -13,15 +14,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($modules as $module)
                 @if($module->quizzes()->count() > 0)
-                <div class="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-700/50 hover:bg-gray-700/30 transition-all duration-300 hover:border-blue-500/30 group">
+                <div class="bg-white/80 dark:bg-[#0F172A]/60 backdrop-blur-sm rounded-lg p-6 border border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-[#0F172A]/50 transition-all duration-300 group">
                     <div class="flex items-start justify-between mb-4">
-                        <h3 class="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">{{ $module->title }}</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors">{{ $module->title }}</h3>
                         <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center border border-blue-500/30">
                             <i class="fas fa-tasks text-blue-400"></i>
                         </div>
                     </div>
                     
-                    <p class="text-gray-400 mb-6">{{ $module->description }}</p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">{{ $module->description }}</p>
                     
                     <div class="flex flex-col space-y-4">
                         <div class="flex items-center text-sm text-gray-400">
@@ -95,12 +96,6 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Set dark theme by default for cybersecurity theme
-    document.body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-});
-</script>
+<!-- theme is controlled globally via layouts/app.blade.php (Alpine + localStorage). Removed forced dark-theme script. -->
 @endpush
 @endsection 

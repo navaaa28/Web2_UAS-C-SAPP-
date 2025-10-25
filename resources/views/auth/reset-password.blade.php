@@ -1,34 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0B1120] to-[#0A0F1C] px-4 py-12 text-white">
+<div class="min-h-screen flex items-center justify-center px-4 py-12 bg-gray-100 text-gray-900 dark:bg-gradient-to-br dark:from-[#0B1120] dark:to-[#0A0F1C] dark:text-white">
     <div class="max-w-md w-full">
-        <div class="bg-[#1A2333]/40 backdrop-blur-xl border border-blue-800 rounded-2xl shadow-xl p-8 relative overflow-hidden">
+    <div class="bg-white dark:bg-[#1A2333]/40 backdrop-blur-xl border border-gray-200 dark:border-blue-800 rounded-2xl shadow-xl p-8 relative overflow-hidden">
             <!-- Background Glow -->
             <div class="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-blue-600 to-purple-600 opacity-10 blur-2xl transform rotate-12"></div>
             <div class="relative z-10">
                 <div class="flex flex-col items-center mb-6">
                     <img src="/storage/images/LOGO.png" alt="C-SAPP" class="h-12 mb-2">
-                    <h2 class="text-2xl font-bold text-center text-white">Reset Password</h2>
+                    <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white">Reset Password</h2>
                 </div>
                 <form method="POST" action="{{ route('password.store') }}" class="space-y-5">
                     @csrf
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
-                        <input id="email" class="mt-2 block w-full rounded-lg bg-[#0F172A] border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" />
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input id="email" class="mt-2 block w-full rounded-lg bg-white border border-gray-300 dark:bg-[#0F172A] dark:border-gray-700 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-400" />
                     </div>
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
-                        <input id="password" class="mt-2 block w-full rounded-lg bg-[#0F172A] border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="password" name="password" required autocomplete="new-password" oninput="checkPasswordStrength(this.value)" />
+                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                        <input id="password" class="mt-2 block w-full rounded-lg bg-white border border-gray-300 dark:bg-[#0F172A] dark:border-gray-700 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="password" name="password" required autocomplete="new-password" oninput="checkPasswordStrength(this.value)" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-red-400" />
                         <div id="password-strength-text" class="mt-2 text-sm"></div>
                         <ul id="password-requirements" class="text-xs text-gray-400 mt-1 space-y-1"></ul>
                     </div>
                     <div>
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-300">Konfirmasi Password</label>
-                        <input id="password_confirmation" class="mt-2 block w-full rounded-lg bg-[#0F172A] border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="password" name="password_confirmation" required autocomplete="new-password" />
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konfirmasi Password</label>
+                        <input id="password_confirmation" class="mt-2 block w-full rounded-lg bg-white border border-gray-300 dark:bg-[#0F172A] dark:border-gray-700 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none" type="password" name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-red-400" />
                     </div>
                     <div>
